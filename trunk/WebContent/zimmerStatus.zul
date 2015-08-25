@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ******************************************************************************* -->
+<!-- * Copyright (c) 2012 Stefan Feilmeier, Roland Kühnel, Franz Wagner. -->
+<!-- * All rights reserved. This program and the accompanying materials -->
+<!-- * are made available under the terms of the GNU Public License v3.0 -->
+<!-- * which accompanies this distribution, and is available at -->
+<!-- * http://www.gnu.org/licenses/gpl.html -->
+<!-- ****************************************************************************** -->
+<zk>
+	<borderlayout width="100%" height="100%" sclass="mainLayout"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('de.hdu.zimmerbelegung.ctrl.ZimmerStatusCtrl')">
+		<north>
+			<div height="40px" align="justify">
+				<label value="Datum von: " />
+				<datebox id="von" cols="18" format="full" width="210px"
+					value="@bind(vm.datumVon) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverter')"
+					mold="rounded" />
+				<label value=" bis: " visible="false" />
+				<datebox id="bis " cols="18" format="full"
+					visible="false" disabled="true"
+					value="@bind(vm.datumBis) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverter')"
+					mold="rounded" />
+				<button label="Heute" width="80px"  visible="@load((vm.datumVon &gt; vm.heute) or (vm.heute &gt; vm.datumVon))"
+					onClick="@command('gotoHeute')" />
+			</div>
+		</north>
+		<center >
+			<listbox model="@load(vm.zimmerZeitraumBelegungList)"
+				vflex="true" hflex="true">
+				<listhead sizable="true">
+					<listheader label="Zimmer" width="70px"/>
+					<listheader width="100px"
+						label="@bind(vm.datumVon) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(1)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(2)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(3)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(4)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(5)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(6)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(7)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(8)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+					<listheader width="120px"
+						label="@bind(vm.datumVon.plusDays(9)) @converter('de.hdu.zimmerbelegung.helper.JodaTimeZkConverterToShortString')" />
+				</listhead>
+				<template name="model" var="item">
+					<listitem>
+						<listcell
+							label="@bind(item.zimmer.zimmernummer)" />
+						<listcell
+							style="@load(item.datumStatusList[0].status eq 'FREI' ? 'color:green' : (item.datumStatusList[0].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[0])" />
+						<listcell
+							style="@load(item.datumStatusList[1].status eq 'FREI' ? 'color:green' : (item.datumStatusList[1].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[1])" />
+						<listcell
+							style="@load(item.datumStatusList[2].status eq 'FREI' ? 'color:green' : (item.datumStatusList[2].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[2])" />
+						<listcell
+							style="@load(item.datumStatusList[3].status eq 'FREI' ? 'color:green' : (item.datumStatusList[3].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[3])" />
+						<listcell
+							style="@load(item.datumStatusList[4].status eq 'FREI' ? 'color:green' : (item.datumStatusList[4].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[4])" />
+						<listcell
+							style="@load(item.datumStatusList[5].status eq 'FREI' ? 'color:green' : (item.datumStatusList[5].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[5])" />
+						<listcell
+							style="@load(item.datumStatusList[6].status eq 'FREI' ? 'color:green' : (item.datumStatusList[6].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[6])" />
+						<listcell
+							style="@load(item.datumStatusList[7].status eq 'FREI' ? 'color:green' : (item.datumStatusList[7].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[7])" />
+						<listcell
+							style="@load(item.datumStatusList[8].status eq 'FREI' ? 'color:green' : (item.datumStatusList[8].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[8])" />
+						<listcell
+							style="@load(item.datumStatusList[9].status eq 'FREI' ? 'color:green' : (item.datumStatusList[9].status eq 'GEBUCHT' ?  'color:red;font-weight:bold' : 'color:orange;font-weight:bold'))"
+							label="@bind(item.datumStatusList[9])" />
+					</listitem>
+				</template>
+			</listbox>
+		</center>
+	</borderlayout>
+
+</zk>

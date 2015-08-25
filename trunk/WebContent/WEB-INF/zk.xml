@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk>
+	<device-config>
+		<device-type>ajax</device-type>
+	</device-config>
+	<session-config>
+		<timer-keep-alive>true</timer-keep-alive>
+	</session-config>
+</zk>

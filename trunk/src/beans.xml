@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ******************************************************************************* -->
+<!-- * Copyright (c) 2012 Stefan Feilmeier, Roland Kühnel, Franz Wagner. -->
+<!-- * All rights reserved. This program and the accompanying materials -->
+<!-- * are made available under the terms of the GNU Public License v3.0 -->
+<!-- * which accompanies this distribution, and is available at -->
+<!-- * http://www.gnu.org/licenses/gpl.html -->
+<!-- ****************************************************************************** -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- SessionFactory -->
+	<bean id="factory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>de.hdu.zimmerbelegung.model.Belegung</value>
+				<value>de.hdu.zimmerbelegung.model.BelegungKopf</value>
+				<value>de.hdu.zimmerbelegung.model.Gast</value>
+				<value>de.hdu.zimmerbelegung.model.Zimmer</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.format_sql">false</prop>
+			</props>
+		</property>
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="factory" />
+	</bean>
+
+	<!-- DAOs -->
+	<bean id="belegungDao" class="de.hdu.zimmerbelegung.dao.BelegungDao">
+		<property name="sessionFactory">
+			<ref bean="factory" />
+		</property>
+	</bean>
+	<bean id="belegungKopfDao" class="de.hdu.zimmerbelegung.dao.BelegungKopfDao">
+		<property name="sessionFactory">
+			<ref bean="factory" />
+		</property>
+	</bean>
+	<bean id="gastDao" class="de.hdu.zimmerbelegung.dao.GastDao">
+		<property name="sessionFactory">
+			<ref bean="factory" />
+		</property>
+	</bean>
+	<bean id="zimmerDao" class="de.hdu.zimmerbelegung.dao.ZimmerDao">
+		<property name="sessionFactory">
+			<ref bean="factory" />
+		</property>
+	</bean>
+
+	<!-- DTOs -->
+	<bean id="zimmerZeitraumBelegungDto" class="de.hdu.zimmerbelegung.dto.ZimmerZeitraumBelegungDto">
+		<property name="sessionFactory">
+			<ref bean="factory" />
+		</property>
+	</bean>
+</beans>
